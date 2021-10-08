@@ -1,0 +1,179 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+void heapify(int arr[], int n, int i)
+{
+    int largest = i;
+    int l = 2 * i + 1;
+    int r = 2 * i + 2;
+
+
+    if (l < n && arr[l] < arr[largest])
+        largest = l;
+
+
+    if (r < n && arr[r] <arr[largest])
+        largest = r;
+
+    if (largest != i) {
+        swap(arr[i], arr[largest]);
+
+
+        heapify(arr, n, largest);
+
+    }
+
+}
+
+
+int heapSort(int arr[], int n)
+{
+      int time=0;
+    for (int i = n / 2 - 1; i >= 0; i--)
+    {
+        time++;
+         heapify(arr, n, i);
+    }
+
+    for (int i = n - 1; i >= 0; i--) {
+        swap(arr[0], arr[i]);
+        time++;
+        heapify(arr, i, 0);
+    }
+    return time;
+}
+
+void bubble_sort(int arr[],int n)
+{
+    for(int i=0;i<n-1;i++)
+    {
+        for(int j=0;j<n-1;j++)
+        {
+            if(arr[j]<arr[j+1])
+                swap(arr[j],arr[j+1]);
+        }
+    }
+}
+void display()
+{
+     int a[]={5000,10000,15000,20000,25000,30000,35000,40000,45000,50000};
+    int time;
+    cout<<endl;
+    cout<<"\t\t\tTime Complexity to sort ascending of data"<<endl;
+    cout<<"SlNo.\tValues\tRandom\t\tAscending\t  Descending"<<endl;
+    cout<<"\t\t   Data\t\t   Data\t\t     Data"<<endl<<endl;
+    for(int i=0;i<10;i++)
+    {
+        int n=a[i];
+        int arr[n];
+        cout<<i+1<<"\t"<<a[i]<<"\t ";
+        for(int j=0;j<n;j++)
+            arr[j]=rand()%200;
+      time=heapSort(arr,n);
+
+
+    cout<<time<<"\t\t ";
+       sort(arr,arr+n);
+     time=heapSort(arr,n);
+      cout<<time<<"\t\t  ";
+    sort(arr,arr+n,greater<int>());
+        time=heapSort(arr,n);
+    cout<<time<<"\t"<<endl;
+
+   }
+
+}
+
+int main()
+{
+    int num,n,time;
+   time_t start, end;
+   double time_taken;
+    cout<<"Enter the value of n : ";
+    cin>>n;
+    int arr[n];
+    int larg;
+    cout<<"\n0. Quit"<<"\n1. n Random numbers=>Array"<<"\n2. Display the Array"<<
+        "\n3. Sort the Array in Descending Order by using Min-Heap Sort Algorithm"<<
+        "\n4. Sort the Array in Descending Order by using any sorting algorithm"<<
+        "\n5. Time Complexity to sort ascending of random data"<<
+        "\n6. Time Complexity to sort ascending of data already sorted in ascending order"<<
+        "\n7. Time Complexity to sort ascending of data already sorted in descending order"<<
+        "\n8. Time Complexity to sort ascending of data for all Cases (Data Ascending, Data in Descending & Random Data) in Tabular form for values n=5000 to 50000, step=5000"
+        <<"\n9. Extract Largest element "<<"\n10. Replace value at a node with new value"<<endl;
+    cout<<"Enter your choice(0-10) : ";
+    cin>>num;
+    while(num!=0)
+    {
+        switch(num){
+
+    case 1:
+        for(int i=0;i<n;i++)
+            arr[i]=rand()%100;
+
+        break;
+    case 2:
+        cout<<"The array is : ";
+            for(int i=0;i<n;i++)
+                cout<<arr[i]<<" ";
+            cout<<endl;
+            break;
+    case 3:
+           time= heapSort(arr,n);
+           cout<<"Sorted array in descending order : ";
+            for(int i=0;i<n;i++)
+                cout<<arr[i]<<" ";
+            cout<<endl;
+            larg=arr[n-1];
+            break;
+    case 4:
+        bubble_sort(arr,n);
+        cout<<"Sorted array in decending order using another algorithm : ";
+            for(int i=0;i<n;i++)
+                cout<<arr[i]<<" ";
+            cout<<endl;
+            break;
+    case 5:
+         time= heapSort(arr,n);
+        cout<<"Time complexity to sort ascending of random data : "<<time<<endl;
+        break;
+    case 6:
+
+        sort(arr,arr+n);
+          time=heapSort(arr,n);
+        cout<<"Time complexity to sort ascending of random data : "<<time<<endl;
+        break;
+    case 7:
+
+        sort(arr,arr+n, greater<int>());
+          time=heapSort(arr,n);
+        cout<<"Time complexity to sort ascending of random data : "<<time<<endl;
+        break;
+    case 8:
+        display();
+        break;
+    case 9:
+        cout<<"Largest element is = "<<larg<<endl;
+        break;
+    case 10:
+        int node,val;
+        cout<<"Enter node to be replaced : " ;
+        cin>>node;
+        cout<<"Enter the value : ";
+        cin>>val;
+        arr[node-1]=val;
+        cout<<"The array is : ";
+            for(int i=0;i<n;i++)
+                cout<<arr[i]<<" ";
+            cout<<endl;
+            break;
+
+    default:
+        cout<<"Enter correct choice "<<endl;
+
+        }
+        cout<<"Enter your choice(0-8) : ";
+        cin>>num;
+    }
+    cout<<"----------End----------";
+}
